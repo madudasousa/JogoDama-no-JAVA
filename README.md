@@ -1,5 +1,5 @@
-# JogoDama-no-JAVA
-Regras do jogo
+# JogoDama no JAVA
+*Regras do jogo*
  - A quantidade de jogadores é 2
  - A primeira peça a se mover é uma peça branca.
  - Cada jogador possui 12 peças.
@@ -11,6 +11,6 @@ Regras do jogo
  - Após marcar um ponto, se houver outra peça disponível para comer, o jogador é obrigado a comê-la.
 
 
-Criado por
+*Criado por*
 - Maria Eduarda de Sousa
 - Yago de Amorim
