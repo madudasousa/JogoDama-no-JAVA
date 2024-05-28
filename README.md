@@ -12,5 +12,5 @@ Regras do jogo
 
 
 Criado por
-Maria Eduarda de Sousa
-Yago de Amorim
+- Maria Eduarda de Sousa
+- Yago de Amorim
