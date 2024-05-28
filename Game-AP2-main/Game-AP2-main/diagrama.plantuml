@@ -1,0 +1,153 @@
+@startuml Diagrama
+
+class App{
+    + main (String args[ ]): void
+}
+
+class CasaGUI{
+    - x : int 
+    - y : int
+    - cor : Color
+
+    + CasaGUI(int x, int y, Color cor, TabuleiroGUI tabuleiro)
+    + getPosicaoX(): int
+    + getPosicaoY(): int
+    + desenharPedraBranca(): void
+    + desenharPedraVermelha(): void
+    + desenharDamaBranca(): void
+    + desenharDamaVermelha(): void
+    + possuiPecan(): boolean
+    + getCorPeca(): int
+    + destacar(): void
+    + atenuar(): void
+    # paintComponent(Graphics g): void
+}
+
+class JanelaPrincipal{
+    - jogo: Jogo
+    - primeiroClique: boolean
+    - casaClicadaOrigem: CasaGUI
+    - casaClicadaDestino: CasaGUI
+    - criarNovoJogo(): void
+    - atualizar(): void
+    - initComponents(): void
+
+    + JanelaPrincipal()
+    + reagir(CasaGUI casaClicada): void
+}
+
+class TabuleiroGUI{
+    - janela: JanelaPrincipal
+    - casas: CasaGUI[ ][ ]
+    - criarCasas: void
+    - calcularCor(int x, int y): Color
+    - initComponents(): void
+
+    + TabuleiroGUI(JanelaPrincipal janela)
+    + atualizar(Jogo jogo): void
+    + getJanela(): JanelaPrincipal
+}
+
+
+class Casa{
+    - x: int
+    - y: int
+    - peca: Pedra
+
+    + Casa(int x, int y)
+    + colocarPeca(Pedra peca): void
+    + removerPeca(): void
+    + getPeca(): Pedra
+    + possuiPeca(): boolean
+    + getX(): int
+    + getY(): int
+}
+
+class Dama{
+    + Dama(Casa casa, int tipo)
+    + isMovimentoValido(Casa destino): boolean
+}
+
+class Jogador{
+    - nome: String
+    - pontos: int
+    - validarNome(String nome): boolean
+
+    + Jogador(String nome)
+    + addPonto(): void
+    + addPonto(int pontos): void
+    + getPontos(): int
+    + getNome(): String
+    + setNome(String nome): void
+}
+
+class Jogo{
+    - tabuleiro: tabuleiro
+    - jogadorUm: Jogador
+    - jogadorDois: Jogador
+    - vezAtual = 1: int
+    - jogadas = 0: int
+    - jogadasSemComerPeca = 0: int
+    - pecasAComer: ArrayList<Casa>
+    - casaBloqueadaOrigem: Casa
+    - simularMovimentoEValidar(Casa origem, Casa destino): boolean
+    - percorrerEVerificar(Casa origem, int deltaX, int deltaY): boolean
+    - deveContinuarJogando(Casa origem): boolean
+    - comerPecas(): void
+    - podeTransformarParaDama(Casa casa): boolean
+    - transformarPedraParaDama(Casa casa): void
+
+    + Jogo()
+    + moverPeca(int origemX, int origemY, int destinoX, int destinoY): void
+    + colocarPecas(Tabuleiro tabuleiro): void
+    + trocarDeVez(): void
+    + getGanhador(): int
+    + getTabuleiro(): Tabuleiro
+    + setJogadorUm(Jogador jogador): void
+    + setJogadorDois(Jogador jogador): void
+    + getJogadorUm(): Jogador
+    + getJogadorDois(): Jogador
+    + getVez(): int
+    + getJogadasSemComerPecas(): int
+    + getJogada(): int
+    + getCasaBloqueada(): Casa
+    + toString(): String
+}
+
+class Peca{
+    + mover(Casa destino): void
+    + isMovimentoValido(Casa destino): boolean
+    + getTipo(): int
+}
+
+class Pedra{
+    # casa: Casa
+    # tipo: int
+
+    + Pedra(Casa casa, int tipo)
+    + mover(Casa destino): void
+    + isMovimentoValido(Casa destino): boolean
+    + getTipo(): int
+}
+
+class Tabuleiro{
+    - casas: Casa[ ][ ]
+    - montarTabuleiro(): void
+
+    + Tabuleiro()
+    + getCasa(int x, int y): Casa
+}
+
+App --> JanelaPrincipal
+Jogo --> JanelaPrincipal
+Jogo *--> Jogador
+Jogo *--> Tabuleiro
+JanelaPrincipal --> CasaGUI
+Casa --> TabuleiroGUI 
+Dama --> TabuleiroGUI 
+Jogo --> TabuleiroGUI  
+Pedra --> TabuleiroGUI 
+Tabuleiro --> TabuleiroGUI
+Pedra -- Peca
+
+@enduml
